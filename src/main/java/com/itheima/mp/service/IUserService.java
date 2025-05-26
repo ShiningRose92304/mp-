@@ -13,4 +13,6 @@ public interface IUserService extends IService<User> {
 
     //根据UserQuery查询用户列表
     List<User> listByUserQuery(UserQuery userQuery);
+
+
 }

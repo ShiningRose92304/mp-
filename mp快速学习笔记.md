@@ -22,7 +22,7 @@
 
 三、mp练习
 
-1.使用IService自带的增删改查等基础sql
+1.使用IService自带的增删改查等**基础sql**
 
 功能：
 
@@ -32,10 +32,24 @@
 - 根据ids批量查询用户
 - 扣减用户余额
 
-2.lombok取代写死的sql，实现自定义sql，动态sql
+2.lombok取代写死的sql，实现**自定义sql，动态sql**
 
 功能：
 
 - 根据userQuery动态查询用户集
 
 ![image-20250525210544772](mp快速学习笔记.assets/image-20250525210544772.png)
+
+3.配置文件修改参数实现**批处理功能**
+
+批量插入10w条数据，在MpDemoApplicationTests测试文件里
+
+批量删除10w条数据，delete from tb_user where id>8
+
+
+
+四、mp进阶
+
+1.框架是固定的，可以用代码生成器替我们写
+
+![屏幕截图 2025-05-26 213743](mp快速学习笔记.assets/屏幕截图 2025-05-26 213743.png)
