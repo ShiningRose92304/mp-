@@ -1,10 +1,12 @@
 package com.itheima.mp.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.itheima.mp.domain.dto.PageDTO;
 import com.itheima.mp.domain.dto.UserFormDTO;
 import com.itheima.mp.domain.po.User;
 import com.itheima.mp.domain.query.UserQuery;
 import com.itheima.mp.domain.vo.UserVO;
+import com.itheima.mp.enums.UserStatus;
 import com.itheima.mp.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,20 +46,18 @@ public class UserController {
         userService.removeById(id);
     }
 
-    @ApiOperation("根据id查询用户")
+    @ApiOperation("根据id查询用户和对应的地址信息")
     @GetMapping("/{id}")
     public UserVO queryUserById(@PathVariable Long id){
-        log.info("根据id查询用户：{}",id);
-        User user = userService.getById(id);
-        return BeanUtil.copyProperties(user,UserVO.class);
+        log.info("根据id查询用户和对应的地址信息：{}",id);
+        return userService.queryUserAndAddressById(id);
     }
 
-    @ApiOperation("根据id批量查询用户")
+    @ApiOperation("根据id批量查询用户和对应的地址信息")
     @GetMapping
     public List<UserVO> queryUserByIds(@RequestParam List<Long> ids){
-        log.info("根据id批量查询用户：{}",ids);
-        List<User> users = userService.listByIds(ids);
-        return BeanUtil.copyToList(users,UserVO.class);
+        log.info("根据id批量查询用户和对应的地址信息：{}",ids);
+        return userService.queryUsersAndAddressByIds(ids);
     }
 
     @ApiOperation("扣减用户余额")
@@ -70,7 +70,7 @@ public class UserController {
     @ApiOperation("根据userQuery查询用户集")
     @GetMapping("/list")
     public List<UserVO> queryUsers(@Param("name") String name,
-                                   @Param("status") Integer status,
+                                   @Param("status") UserStatus status,
                                    @Param("minBalance") Integer minBalance,
                                    @Param("maxBalance") Integer maxBalance){
         log.info("根据userQuery查询用户集：{}",name,status,minBalance,maxBalance);
@@ -81,4 +81,10 @@ public class UserController {
         return BeanUtil.copyToList(users,UserVO.class);
     }
 
+    @ApiOperation("分页查询")
+    @GetMapping("/page")
+    public PageDTO<UserVO> PageQuery( UserQuery userQuery){
+        log.info("分页查询：{}",userQuery);
+        return userService.pageQuery(userQuery);
+    }
 }

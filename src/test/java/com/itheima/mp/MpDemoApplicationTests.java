@@ -1,6 +1,7 @@
 package com.itheima.mp;
 
 import com.itheima.mp.domain.po.User;
+import com.itheima.mp.domain.po.UserInfo;
 import com.itheima.mp.service.IUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,10 @@ class MpDemoApplicationTests {
         user.setPhone(""+18688190000L+i);
         user.setBalance(2000);
         if(i%2==0){
-            user.setInfo("{\"age\":19,\"intro\":\"rapper老师\",\"gender\":\"male\"}");
+            user.setInfo(UserInfo.of(19,"rapper老师","male"));
 
         }else {
-            user.setInfo("{\"age\":20,\"intro\":\"r&b老师\",\"gender\":\"male\"}");
+            user.setInfo(UserInfo.of(20,"r&b老师","female"));
         }
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
